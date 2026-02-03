@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Logback Configuration for MCP Server
+
+    IMPORTANT: Logging is completely disabled for MCP STDIO servers.
+
+    The Model Context Protocol communicates via JSON messages over stdin/stdout.
+    Any log output to the console would corrupt the protocol and cause errors.
+
+    If you need to debug, consider:
+    1. Logging to a file instead of console
+    2. Using a separate debug mode that doesn't use STDIO transport
+-->
 <configuration>
+    <!-- Disable all logging to keep STDIO streams clean -->
     <root level="OFF" />
 </configuration>
