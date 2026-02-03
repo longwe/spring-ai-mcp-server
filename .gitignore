@@ -1,0 +1,102 @@
+# ==============================
+# Build Output
+# ==============================
+target/
+build/
+out/
+*.jar
+*.war
+*.ear
+!.mvn/wrapper/maven-wrapper.jar
+
+# ==============================
+# IDE - IntelliJ IDEA
+# ==============================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ==============================
+# IDE - Eclipse
+# ==============================
+.classpath
+.project
+.settings/
+bin/
+
+# ==============================
+# IDE - VS Code
+# ==============================
+.vscode/
+
+# ==============================
+# IDE - NetBeans
+# ==============================
+nbproject/
+nbbuild/
+nbdist/
+nb-configuration.xml
+
+# ==============================
+# OS Files
+# ==============================
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==============================
+# Logs
+# ==============================
+*.log
+logs/
+
+# ==============================
+# Environment & Secrets
+# ==============================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+application-local.properties
+application-local.yml
+
+# ==============================
+# Maven
+# ==============================
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# ==============================
+# Gradle (if used)
+# ==============================
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+
+# ==============================
+# Test Files (project-specific)
+# ==============================
+src/test/data/
+src/test/java/*.sh
+src/test/java/*.txt
+src/test/java/records-to-verify*
+
+# ==============================
+# Misc
+# ==============================
+*.swp
+*.swo
+*~
+.project
+*.orig
+HELP.md
