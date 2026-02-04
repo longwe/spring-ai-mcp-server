@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * JPA Entity representing a product in the inventory.
@@ -22,6 +23,7 @@ import lombok.Data;
 @Entity
 @Table(name = "products")
 @Data
+@NoArgsConstructor
 public class Product {
 
     /**
@@ -54,23 +56,15 @@ public class Product {
     private Integer stock;
 
     /**
-     * Default no-args constructor required by JPA.
-     */
-    public Product() {}
-
-    /**
-     * Convenience constructor for creating a new product with all fields.
-     * The ID is not set here as it will be auto-generated upon persistence.
+     * Convenience constructor for creating a new product without an ID.
+     * The ID will be auto-generated upon persistence.
      *
      * @param name     The product name
      * @param category The product category
      * @param price    The product price in USD
      * @param stock    The initial stock quantity
      */
-    public Product(String name,
-                   String category,
-                   Double price,
-                   Integer stock) {
+    public Product(String name, String category, Double price, Integer stock) {
         this.name = name;
         this.category = category;
         this.price = price;

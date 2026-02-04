@@ -1,0 +1,62 @@
+# Spring AI MCP Server - Application Configuration
+# Sets up a Model Context Protocol (MCP) server that exposes
+# product inventory tools to AI assistants like Claude.
+
+spring:
+  application:
+    name: product-mcp-server
+
+  main:
+    # MCP uses STDIO, not HTTP
+    web-application-type: none
+    # Keep STDIO streams clean for MCP JSON protocol
+    banner-mode: off
+    log-startup-info: false
+
+  ai:
+    mcp:
+      server:
+        enabled: true
+        # Server identification - shown to MCP clients during handshake
+        name: product-inventory-mcp-server
+        version: 1.0.0
+        # SYNC processes one request at a time; use ASYNC for concurrent handling
+        type: SYNC
+        # STDIO transport - server communicates via stdin/stdout
+        stdio: true
+        instructions: This MCP server provides tools for managing a product inventory database.
+        capabilities:
+          tool: true        # Expose tools (functions the AI can call)
+          resource: false   # No file/data resources exposed
+          prompt: false     # No prompt templates provided
+          completion: false # No auto-completion support
+
+  # H2 in-memory database - recreated on each server start
+  datasource:
+    url: jdbc:h2:mem:productdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      # Create schema on startup, drop on shutdown
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+# All logging disabled for MCP STDIO servers
+# Any log output to stdout/stderr would corrupt the MCP JSON protocol
+logging:
+  level:
+    root: OFF
+    org.springframework: OFF
+    org.hibernate: OFF
+    com.leetjourney: OFF
+  file:
+    name:
+    path:
+  pattern:
+    console:

@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 /**
  * Configuration class that initializes the database with sample product data.
  *
@@ -22,9 +24,6 @@ public class DataInitializer {
     /**
      * Creates a CommandLineRunner bean that populates the database on startup.
      *
-     * CommandLineRunner is a Spring Boot interface that executes code after
-     * the application context is loaded but before the application is fully started.
-     *
      * Sample data includes products across four categories:
      * - Electronics: Laptop, Mouse, Keyboard
      * - Books: Programming books
@@ -37,23 +36,19 @@ public class DataInitializer {
     @Bean
     CommandLineRunner initDatabase(ProductRepository repository) {
         return args -> {
-            // Electronics category - tech products
-            repository.save(new Product("Laptop", "Electronics", 999.99, 15));
-            repository.save(new Product("Wireless Mouse", "Electronics", 29.99, 50));
-            repository.save(new Product("Mechanical Keyboard", "Electronics", 89.99, 30));
-
-            // Books category - programming books
-            repository.save(new Product("Spring in Action", "Books", 45.99, 25));
-            repository.save(new Product("Clean Code", "Books", 39.99, 20));
-
-            // Clothing category - apparel items
-            repository.save(new Product("T-Shirt", "Clothing", 19.99, 100));
-            repository.save(new Product("Jeans", "Clothing", 59.99, 75));
-
-            // Appliances category - kitchen appliances
-            repository.save(new Product("Coffee Maker", "Appliances", 79.99, 40));
-            repository.save(new Product("Blender", "Appliances", 49.99, 35));
-            repository.save(new Product("Toaster", "Appliances", 29.99, 45));
+            var products = List.of(
+                    new Product("Laptop", "Electronics", 999.99, 15),
+                    new Product("Wireless Mouse", "Electronics", 29.99, 50),
+                    new Product("Mechanical Keyboard", "Electronics", 89.99, 30),
+                    new Product("Spring in Action", "Books", 45.99, 25),
+                    new Product("Clean Code", "Books", 39.99, 20),
+                    new Product("T-Shirt", "Clothing", 19.99, 100),
+                    new Product("Jeans", "Clothing", 59.99, 75),
+                    new Product("Coffee Maker", "Appliances", 79.99, 40),
+                    new Product("Blender", "Appliances", 49.99, 35),
+                    new Product("Toaster", "Appliances", 29.99, 45)
+            );
+            repository.saveAll(products);
         };
     }
 }

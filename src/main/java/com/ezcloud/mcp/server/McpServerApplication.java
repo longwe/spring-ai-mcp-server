@@ -12,7 +12,6 @@ import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 /**
@@ -29,25 +28,14 @@ import org.springframework.context.annotation.Bean;
 public class McpServerApplication {
 
 	public static void main(String[] args) {
-		// Create and configure the Spring Boot application
-		SpringApplication app = new SpringApplication(McpServerApplication.class);
-
-		// Disable startup logs and banner for clean STDIO communication
-		// MCP protocol requires clean streams without extra output
+		var app = new SpringApplication(McpServerApplication.class);
 		app.setLogStartupInfo(false);
 		app.setBannerMode(Banner.Mode.OFF);
 
-		// Start the application and get the context
-		ConfigurableApplicationContext context = app.run(args);
+		var context = app.run(args);
 
-		// Register a shutdown hook to ensure graceful cleanup when the process terminates
-		// This ensures database connections and resources are properly released
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			context.close();
-		}));
+		Runtime.getRuntime().addShutdownHook(new Thread(context::close));
 
-		// CRITICAL: Keep the main thread alive to prevent the application from exiting
-		// The MCP server runs on background threads, so we need to block the main thread
 		try {
 			Thread.currentThread().join();
 		} catch (InterruptedException e) {
